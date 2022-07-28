@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faker } from "@faker-js/faker";
-import * as _ from "lodash";
+import { uniqueId } from 'lodash';
 export interface IProduct {
   name: string,
   price: number,
@@ -21,6 +21,13 @@ export class FatherComponent implements OnInit {
   }
 
 
+  public deleteCarWithId($indexToDelete:string):void {
+    const indexToDelete = this.products.findIndex((product) => product.id === $indexToDelete);
+    ~indexToDelete && this.products.splice(indexToDelete, 1);
+  }
+
+
+
   // ! @ data generators
   private generateRandomProductGroup(): Array<IProduct> {
     const productsArray: Array<IProduct> = [];
@@ -35,7 +42,7 @@ export class FatherComponent implements OnInit {
       name: faker.vehicle.vehicle(),
       price: parseFloat(faker.commerce.price()),
       model: faker.vehicle.model(),
-      id: _.uniqueId(),
+      id: uniqueId(),
     }
   }
 

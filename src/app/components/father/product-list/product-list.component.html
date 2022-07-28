@@ -1,1 +1,17 @@
-hello there
+<ul>    
+    <li *ngFor="let car of carList" style="display: flex; margin: .5em 0;">
+        <section id="car-info-wrapper">
+            <div>
+                {{ car.name }} - $ {{ car.price }}
+            </div>
+            <div>
+                {{ car.model }}
+            </div>
+        </section>
+        <section style="margin-left: .5em;">
+            <button type="button" (click)="deleteWithId(car.id)">
+                Delete
+            </button>
+        </section>
+    </li>
+</ul>

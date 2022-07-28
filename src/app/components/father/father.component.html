@@ -4,5 +4,5 @@
     </h2>
 </section>
 <section id="child-components-wrapper">
-    <app-product-list></app-product-list>
+    <app-product-list (deleteCarWithId)="deleteCarWithId($event)" [carList]="products"></app-product-list>
 </section>
