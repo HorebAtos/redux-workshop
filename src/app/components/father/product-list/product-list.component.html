@@ -1,1 +1,19 @@
-<p>product-list works!</p>
+<ul>
+    <li *ngFor="let car of productList$ | async" style="display: flex;">
+        <section>
+            <div>
+                {{car.name}} - ${{ car.price}}
+            </div>
+            <div>
+                {{ car.model }}
+            </div>
+        </section>
+        <section style="margin-left: .5em;">
+            <button type="button" (click)="removeCarById(car.id)">
+                Remove
+            </button>
+        </section>
+    </li>
+
+
+</ul>
