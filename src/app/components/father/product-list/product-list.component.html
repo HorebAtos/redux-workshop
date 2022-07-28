@@ -1,1 +1,10 @@
-<p>product-list works!</p>
+<ol>
+    <li *ngFor="let car of carList$ | async">
+        <div>
+            {{ car.name }} - $ {{ car.price }}
+        </div>
+        <div>
+            <button (click)="deleteCar(car.id)" type="button">Delete</button>
+        </div>
+    </li>
+</ol>

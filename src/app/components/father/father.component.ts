@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { addNewCar, loadCars } from 'src/app/state/app-actions';
+import { generateRandomProduct } from 'src/app/state/app-reducers';
+import { IAPP_STATE } from 'src/app/state/app-state';
 
 @Component({
   selector: 'app-father',
@@ -7,9 +11,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FatherComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private readonly ngrxStore: Store<IAPP_STATE>
+  ) { }
 
   ngOnInit(): void {
+    this.ngrxStore.dispatch(loadCars());
+  }
+
+  public createNewCar():void {
+    this.ngrxStore.dispatch(addNewCar(generateRandomProduct()))
   }
 
 }

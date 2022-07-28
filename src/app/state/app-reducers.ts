@@ -3,24 +3,18 @@ import { ICar } from "../models/car.entity";
 import { addNewCar, loadCars, removeCarById } from "./app-actions";
 import { faker } from "@faker-js/faker";
 import { uniqueId } from 'lodash';
+import { deleteCarById } from "./app-operations";
 
 const productListDefaultState: ICar[] = [];
-
-
 
 export const carListReducer = createReducer<ICar[], Action>(
     productListDefaultState,
     on(loadCars, () => generateRandomProductGroup()),
-    on(removeCarById, (carList, { id: deleteId }) => {
-        const indexToDelete = carList.findIndex((product) => product.id === deleteId);
-        const newCarList = [...carList];
-        ~indexToDelete && newCarList.splice(indexToDelete, 1);
-        return newCarList;
-    }),
-    on(addNewCar, (carList, newCar) => [...carList, newCar]),
+    on(removeCarById, deleteCarById),
+    on(addNewCar, (carList, newCar) => [newCar, ...carList]),
 );
 
-const generateRandomProductGroup = (): Array<ICar> => {
+export const generateRandomProductGroup = (): Array<ICar> => {
     const productsArray: Array<ICar> = [];
     for (let k = 0; k < 20; k++) {
         productsArray.push(generateRandomProduct());
@@ -28,7 +22,7 @@ const generateRandomProductGroup = (): Array<ICar> => {
     return productsArray;
 }
 
-const generateRandomProduct = (): ICar => {
+export const generateRandomProduct = (): ICar => {
     return {
         name: faker.vehicle.vehicle(),
         price: parseFloat(faker.commerce.price()),
