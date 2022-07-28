@@ -7,6 +7,8 @@ import { StoreModule } from '@ngrx/store';
 import { APP_STATE } from './state/app-state';
 import { FatherComponent } from './components/father/father.component';
 import { ProductListComponent } from './components/father/product-list/product-list.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { ProductListComponent } from './components/father/product-list/product-l
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot(APP_STATE)
+    StoreModule.forRoot(APP_STATE),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
